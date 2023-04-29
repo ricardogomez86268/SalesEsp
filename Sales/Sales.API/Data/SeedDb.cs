@@ -15,6 +15,7 @@ namespace Sales.API.Data
         {
             await _context.Database.EnsureCreatedAsync();
             await CheckCountriesAsync();
+            await CheckCategoriesAsync();
         }
 
         private async Task CheckCountriesAsync()
@@ -69,11 +70,11 @@ namespace Sales.API.Data
                         new State()
                         {
                             Name = "Texas",
-                            Cities = new List<City>() {
+                            Cities = new List<City>() { 
                                 new City() { Name = "Houston" },
                                 new City() { Name = "San Antonio" },
                                 new City() { Name = "Dallas" },
-                                new City() { Name = "Austin" },
+                                new City() { Name = "Austin" }, 
                                 new City() { Name = "El Paso" },
                             }
                         },
@@ -83,5 +84,30 @@ namespace Sales.API.Data
 
             await _context.SaveChangesAsync();
         }
+
+        private async Task CheckCategoriesAsync()
+        {
+            if (!_context.Categories.Any())
+            {                
+                _context.Categories.AddRange(new List<Category>()
+                {
+                    new Category() { Name = "Calzado" },
+                    new Category() { Name = "Deportes" },
+                    new Category() { Name = "Tecnología" },
+                    new Category() { Name = "Jardín" },
+                    new Category() { Name = "Hogar" },
+                    new Category() { Name = "Cuidado personal" },
+                    new Category() { Name = "Belleza" },
+                    new Category() { Name = "Bebidas" },
+                    new Category() { Name = "Alimentos" },
+                    new Category() { Name = "Ropa" },
+                    new Category() { Name = "Mascotas" },
+                    new Category() { Name = "Juguetes" }
+                });
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

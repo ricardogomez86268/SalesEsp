@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Sales.Shared\Sales.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Cities\" />
+    <Folder Include="Pages\States\" />
+  </ItemGroup>
+
 </Project>

@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.API", "Sales.API\Sales.API.csproj", "{68A761B5-2D8E-4426-B2AB-26C754C0949A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.WEB", "Sales.WEB\Sales.WEB.csproj", "{91701961-4949-465A-9A40-D1A771A4B190}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68A761B5-2D8E-4426-B2AB-26C754C0949A} = {68A761B5-2D8E-4426-B2AB-26C754C0949A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
