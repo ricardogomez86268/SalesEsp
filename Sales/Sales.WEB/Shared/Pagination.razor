@@ -14,7 +14,7 @@
 @code {
     [Parameter] public int CurrentPage { get; set; } = 1;
     [Parameter] public int TotalPages { get; set; }
-    [Parameter] public int Radio { get; set; } = 5;
+    [Parameter] public int Radio { get; set; } = 10;//Rango
     [Parameter] public EventCallback<int> SelectedPage { get; set; }
     List<PageModel> Links = new();
 
@@ -33,7 +33,7 @@
 
         for (int i = 1; i <= TotalPages; i++)
         {
-            if (i >= CurrentPage - Radio && i <= CurrentPage + Radio)
+            if (TotalPages <= Radio)//Pinto el rango completo si la cantidad de paginas es menor al radio 
             {
                 Links.Add(new PageModel
                     {
@@ -42,10 +42,38 @@
                         Text = $"{i}"
                     });
             }
+
+            if (TotalPages > Radio && i <= Radio && CurrentPage <= Radio)//Pinto el rango completo si la cantidad de paginas es mayor al radio
+            {
+                Links.Add(new PageModel
+                    {
+                        Page = i,
+                        Enable = CurrentPage == i,
+                        Text = $"{i}"
+                    });
+            }
+
+
+            if (i > (CurrentPage - Radio) && i <= CurrentPage && CurrentPage > Radio)//Desplazo el listado hacia delante de la pagina actual
+            {
+                Links.Add(new PageModel
+                    {
+                        Page = i,
+                        Enable = CurrentPage == i,
+                        Text = $"{i}"
+                    });
+            }
+
+
         }
 
         var linkNextEnable = CurrentPage != TotalPages;
-        var linkNextPage = CurrentPage + 1;
+        var linkNextPage = 0;
+        if (linkNextEnable)
+            linkNextPage = CurrentPage + 1;
+        else
+            linkNextPage = CurrentPage;
+
         Links.Add(new PageModel
             {
                 Text = "Siguiente",
