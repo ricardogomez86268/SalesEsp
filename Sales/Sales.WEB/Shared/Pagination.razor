@@ -42,7 +42,7 @@
                         Text = $"{i}"
                     });
             }
-            if (TotalPages > Radio && i <= Radio && CurrentPage <= Radio)//Pinto el rango completo si la cantidad de paginas es mayor al radio
+            if (TotalPages > Radio && i <= Radio && CurrentPage <= Radio)//Pinto el rango completo si la cantidad de paginas es mayor o igual al radio
             {
                 Links.Add(new PageModel
                     {
@@ -51,7 +51,7 @@
                         Text = $"{i}"
                     });
             }
-            if (i > (CurrentPage - Radio) && i <= CurrentPage && CurrentPage > Radio)//Desplazo el listado hacia delante de la pagina actual
+            if (i > (CurrentPage - Radio) && i <= CurrentPage && CurrentPage > Radio)//Desplazo el listado hacia delante de la pagina actual cuando llega al final del numero en pantalla
             {
                 Links.Add(new PageModel
                     {
