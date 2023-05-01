@@ -42,7 +42,6 @@
                         Text = $"{i}"
                     });
             }
-
             if (TotalPages > Radio && i <= Radio && CurrentPage <= Radio)//Pinto el rango completo si la cantidad de paginas es mayor al radio
             {
                 Links.Add(new PageModel
@@ -52,8 +51,6 @@
                         Text = $"{i}"
                     });
             }
-
-
             if (i > (CurrentPage - Radio) && i <= CurrentPage && CurrentPage > Radio)//Desplazo el listado hacia delante de la pagina actual
             {
                 Links.Add(new PageModel
@@ -63,13 +60,11 @@
                         Text = $"{i}"
                     });
             }
-
-
         }
 
         var linkNextEnable = CurrentPage != TotalPages;
         var linkNextPage = 0;
-        if (linkNextEnable)
+        if (linkNextEnable)//Mejora para frenar el desplazamiento cuendo ya llego al final
             linkNextPage = CurrentPage + 1;
         else
             linkNextPage = CurrentPage;
@@ -80,7 +75,6 @@
                 Page = linkNextPage,
                 Enable = linkNextEnable
             });
-
     }
 
     private async Task InternalSelectedPage(PageModel pageModel)
