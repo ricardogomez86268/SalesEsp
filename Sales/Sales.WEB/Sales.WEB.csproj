@@ -21,4 +21,10 @@
     <Folder Include="Pages\States\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\css\app.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -4,7 +4,17 @@
         @foreach (var link in Links)
         {
             <li @onclick=@(() => InternalSelectedPage(link)) style="cursor: pointer" class="page-item @(link.Enable ? null : "disabled") @(link.Enable ? "active" : null)">
-                <a class="page-link">@link.Text</a>
+                @if (link.Text.Equals(Anterior) || link.Text.Equals(Siguiente))
+                {
+                    <a class="page-link" style="width:100px; text-align:center">@link.Text</a>
+                    //<a class="page-link page-link-wide">@link.Text</a>
+                }
+                else
+                { 
+                    <a class="page-link" style="width:40px; text-align:center">@link.Text</a>
+                    //<a class="page-link page-link-narrow">@link.Text</a>
+                }
+
             </li>
         }
     </ul>
@@ -17,7 +27,8 @@
     [Parameter] public int Radio { get; set; } = 10;//Rango
     [Parameter] public EventCallback<int> SelectedPage { get; set; }
     List<PageModel> Links = new();
-
+    string Anterior = "Anterior";
+    string Siguiente = "Siguiente";
     protected override void OnParametersSet()
     {
         Links = new List<PageModel>();
@@ -26,7 +37,7 @@
         var previousLinkPage = CurrentPage - 1;
         Links.Add(new PageModel
             {
-                Text = "Anterior",
+                Text = Anterior,
                 Page = previousLinkPage,
                 Enable = previousLinkEnable
             });
@@ -71,7 +82,7 @@
 
         Links.Add(new PageModel
             {
-                Text = "Siguiente",
+                Text = Siguiente,
                 Page = linkNextPage,
                 Enable = linkNextEnable
             });

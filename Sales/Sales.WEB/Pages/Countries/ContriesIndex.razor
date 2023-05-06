@@ -160,17 +160,17 @@
     }
 
 
-    private async Task CleanFilterAsync()
-    {
-        Filter = string.Empty;
-        await ApplyFilterAsync();
-    }
+    //private async Task CleanFilterAsync()
+    //{
+    //    Filter = string.Empty;
+    //    await ApplyFilterAsync();
+    //}
 
-    private async Task ApplyFilterAsync()
-    {
-        int page = 1;
-        await LoadTotalPagesAsync();
-        await LoadAsync(page);
-        await SelectedPage(page);
-    }
+    //private async Task ApplyFilterAsync()
+    //{
+    //    int page = 1;
+    //    await LoadTotalPagesAsync();
+    //    await LoadAsync(page);
+    //    await SelectedPage(page);
+    //}
 }
