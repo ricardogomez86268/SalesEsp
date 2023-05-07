@@ -20,7 +20,6 @@
     </ul>
 </nav>
 
-
 @code {
     [Parameter] public int CurrentPage { get; set; } = 1;
     [Parameter] public int TotalPages { get; set; }
@@ -35,42 +34,25 @@
 
         var previousLinkEnable = CurrentPage != 1;
         var previousLinkPage = CurrentPage - 1;
-        Links.Add(new PageModel
-            {
-                Text = Anterior,
-                Page = previousLinkPage,
-                Enable = previousLinkEnable
-            });
 
+        AddPageModel(previousLinkPage, previousLinkEnable, Anterior);
         for (int i = 1; i <= TotalPages; i++)
         {
-            if (TotalPages <= Radio)//Pinto el rango completo si la cantidad de paginas es menor al radio 
+            if (TotalPages <= Radio)
             {
-                Links.Add(new PageModel
-                    {
-                        Page = i,
-                        Enable = CurrentPage == i,
-                        Text = $"{i}"
-                    });
+                AddPageModel(i, CurrentPage == i, $"{i}");
             }
-            if (TotalPages > Radio && i <= Radio && CurrentPage <= Radio)//Pinto el rango completo si la cantidad de paginas es mayor o igual al radio
+            else if (TotalPages > Radio)
             {
-                Links.Add(new PageModel
-                    {
-                        Page = i,
-                        Enable = CurrentPage == i,
-                        Text = $"{i}"
-                    });
-            }
-            if (i > (CurrentPage - Radio) && i <= CurrentPage && CurrentPage > Radio)//Desplazo el listado hacia delante de la pagina actual cuando llega al final del numero en pantalla
-            {
-                Links.Add(new PageModel
-                    {
-                        Page = i,
-                        Enable = CurrentPage == i,
-                        Text = $"{i}"
-                    });
-            }
+                if (i <= Radio && CurrentPage <= Radio)
+                {
+                    AddPageModel(i, CurrentPage == i, $"{i}");
+                }
+                else if (i > (CurrentPage - Radio) && i <= CurrentPage && CurrentPage > Radio)
+                {
+                    AddPageModel(i, CurrentPage == i, $"{i}");
+                }
+            }          
         }
 
         var linkNextEnable = CurrentPage != TotalPages; 
@@ -80,13 +62,20 @@
         else
             linkNextPage = CurrentPage;
 
+        AddPageModel(linkNextPage, linkNextEnable, Siguiente);
+    }
+
+
+    private void AddPageModel(int page, bool enable, string text)
+    {
         Links.Add(new PageModel
             {
-                Text = Siguiente,
-                Page = linkNextPage,
-                Enable = linkNextEnable
+                Page = page,
+                Enable = enable,
+                Text = text
             });
     }
+
 
     private async Task InternalSelectedPage(PageModel pageModel)
     {
@@ -94,7 +83,6 @@
         {
             return;
         }
-
         await SelectedPage.InvokeAsync(pageModel.Page);
     }
 
